@@ -1,53 +1,32 @@
-# Multi-stage optimized Dockerfile for Helidon MicroProfile application
-# Build stage caches dependencies separately for faster incremental builds.
-
-# ---- Builder stage ----
+# dockerfile
+# Build JAR with Maven (Temurin JDK 25)
 FROM maven:3.9-eclipse-temurin-25 AS build
 WORKDIR /workspace
-
-# Copy pom first to leverage dependency caching
 COPY pom.xml ./
-RUN --mount=type=cache,target=/root/.m2 \
-    mvn -B -q dependency:go-offline
-
-# Copy source
+RUN --mount=type=cache,target=/root/.m2 mvn -B -q dependency:go-offline
 COPY src ./src
+RUN --mount=type=cache,target=/root/.m2 mvn -B -DskipTests package
 
-# Build (adjust -DskipTests if you want tests executed)
-RUN --mount=type=cache,target=/root/.m2 \
-    mvn -B -DskipTests package
+# Compile native image with GraalVM 25
+FROM ghcr.io/graalvm/native-image:25 AS native-build
+WORKDIR /workspace
+# Copy app artifacts (thin JAR + libs). If your build produces an uber/fat JAR, you can copy only the JAR.
+COPY --from=build /workspace/target/Helidon-GCP.jar /workspace/app.jar
+COPY --from=build /workspace/target/libs /workspace/libs
+# Build native binary; relies on JAR manifest for Main-Class and Class-Path
+# Adjust memory/flags if needed for your project.
+RUN native-image --no-fallback -J-Xmx4g -H:Name=app -jar /workspace/app.jar
 
-# ---- Runtime stage ----
-FROM eclipse-temurin:25-jre-alpine AS runtime
-
-# Create non-root user (uid 10001 chosen arbitrarily)
-RUN addgroup -S app && adduser -S -G app -u 10001 app
-
+# Minimal runtime (distroless, glibc)
+FROM gcr.io/distroless/cc-debian12 AS runtime
 WORKDIR /app
+COPY --from=native-build /workspace/app /app/app
 
-# Copy application artifacts (jar + any libs if present)
-COPY --from=build /workspace/target/Helidon-GCP.jar ./
-COPY --from=build /workspace/target/libs ./libs
-
-# Environment configuration
-ENV JAVA_OPTS="" \
-    PORT=8080 \
-    APP_JAR=Helidon-GCP.jar
-
-# Expose port 8080 for Cloud Run compatibility
+# Cloud Run expects port 8080
+ENV PORT=8080
 EXPOSE 8080
 
-# Basic healthcheck using OpenAPI endpoint (present via dependencies) fallback to 200 on port
-HEALTHCHECK --interval=30s --timeout=3s --start-period=40s --retries=3 CMD wget -qO- http://localhost:8080/openapi > /dev/null 2>&1 || wget -qO- http://localhost:8080/ || exit 1
+# Non-root user in distroless
+USER 65532:65532
 
-USER app
-
-# Use sh -c to allow JAVA_OPTS expansion
-ENTRYPOINT ["sh", "-c", "java $JAVA_OPTS -jar /app/$APP_JAR"]
-
-# OCI labels (adjust revision via build args if desired)
-LABEL org.opencontainers.image.title="Helidon-GCP" \
-      org.opencontainers.image.description="Helidon MicroProfile application container" \
-      org.opencontainers.image.source="https://example.com/repo" \
-      org.opencontainers.image.version="1.0-SNAPSHOT" \
-      org.opencontainers.image.licenses="Apache-2.0"
+ENTRYPOINT ["/app/app"]
