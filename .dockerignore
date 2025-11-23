@@ -1,0 +1,34 @@
+# Ignore Maven build output
+target/
+
+# IDE and tooling
+.idea/
+*.iml
+*.ipr
+*.iws
+.vscode/
+
+# VCS
+.git
+.gitignore
+
+# OS / misc
+.DS_Store
+
+# Node / other potential dirs
+node_modules/
+
+# Logs
+*.log
+
+# Docker related
+Dockerfile
+Dockerfile.*
+
+# Env files / secrets (ensure none committed)
+*.env
+.env*
+
+# Temporary
+tmp/
+
