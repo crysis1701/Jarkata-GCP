@@ -34,3 +34,12 @@ jobs:
       - name: Print pushed image URL
         run: |
           echo "Pushed Image: $IMAGE"
+
+      - name: Deploy to Cloud Run
+        run: |
+          gcloud run deploy helidon-service \
+            --image=$IMAGE \
+            --region=${{ secrets.AR_REGION }} \
+            --platform=managed \
+            --port=8080 \
+            --allow-unauthenticated
