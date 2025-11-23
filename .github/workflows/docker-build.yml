@@ -1,0 +1,36 @@
+name: Build & Push to Artifact Registry
+
+on:
+  push:
+    branches: [ "main" ]   # or "master" or any branch you want
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Google Cloud auth
+        uses: google-github-actions/auth@v2
+        with:
+          credentials_json: ${{ secrets.GCP_SA_KEY }}
+
+      - name: Configure Docker for Artifact Registry
+        run: |
+          gcloud auth configure-docker ${{ secrets.AR_REGION }}-docker.pkg.dev
+
+      - name: Build Docker Image
+        run: |
+          IMAGE="${{ secrets.AR_REGION }}-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/${{ secrets.AR_REPO }}/app:$(date +%Y%m%d-%H%M%S)"
+          echo "IMAGE=$IMAGE" >> $GITHUB_ENV
+          docker build -t $IMAGE .
+
+      - name: Push Docker Image
+        run: |
+          docker push $IMAGE
+
+      - name: Print pushed image URL
+        run: |
+          echo "Pushed Image: $IMAGE"
