@@ -2,7 +2,7 @@
 # Build stage caches dependencies separately for faster incremental builds.
 
 # ---- Builder stage ----
-FROM maven:3.9.9-eclipse-temurin-21 AS build
+FROM maven:3.9-eclipse-temurin-25 AS build
 WORKDIR /workspace
 
 # Copy pom first to leverage dependency caching
@@ -18,7 +18,7 @@ RUN --mount=type=cache,target=/root/.m2 \
     mvn -B -DskipTests package
 
 # ---- Runtime stage ----
-FROM eclipse-temurin:21-jre-alpine AS runtime
+FROM eclipse-temurin:25-jre-alpine AS runtime
 
 # Create non-root user (uid 10001 chosen arbitrarily)
 RUN addgroup -S app && adduser -S -G app -u 10001 app
@@ -31,14 +31,14 @@ COPY --from=build /workspace/target/libs ./libs
 
 # Environment configuration
 ENV JAVA_OPTS="" \
-    PORT=7001 \
+    PORT=8080 \
     APP_JAR=Helidon-GCP.jar
 
-# Expose Helidon default port (empty application.yaml implies default 7001)
-EXPOSE 7001
+# Expose port 8080 for Cloud Run compatibility
+EXPOSE 8080
 
 # Basic healthcheck using OpenAPI endpoint (present via dependencies) fallback to 200 on port
-HEALTHCHECK --interval=30s --timeout=3s --start-period=40s --retries=3 CMD wget -qO- http://localhost:${PORT}/openapi > /dev/null 2>&1 || wget -qO- http://localhost:${PORT}/ || exit 1
+HEALTHCHECK --interval=30s --timeout=3s --start-period=40s --retries=3 CMD wget -qO- http://localhost:8080/openapi > /dev/null 2>&1 || wget -qO- http://localhost:8080/ || exit 1
 
 USER app
 
