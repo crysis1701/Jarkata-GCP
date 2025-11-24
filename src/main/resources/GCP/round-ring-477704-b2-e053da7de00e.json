@@ -1,0 +1,13 @@
+{
+  "type": "service_account",
+  "project_id": "round-ring-477704-b2",
+  "private_key_id": "e053da7de00eb86b05f57dbdf03dbda1a263f567",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQDHuSoyG3u3Zwfu\nnLo2rzWrSTEs/rSpN052EgJkto7RFUcTK40OKwiWvDg8BNkqXjHuzKI9pl53uEQc\nBFwyFUIfjYXVTes5IBmcg3jzwuVmK0kt/DZ6GvNSy+UQahZbgCdUNWAcgciCP8Be\nYOt3tcZxIgU9EIH56cyUcs6xLOrnt1SzRFFFG4szV8fPg1z251+OTNOOTVQlMucI\n2FA5OAYo6BIW2X5Q1zleYpnGA5JJHm4fvbMnCMi2w9sVQwKS1ckZdh3c9KsTH77J\nN4V/eXs7j9PTfcNMjsqU+tKe5A874fxshgHbzFOv+D8hqqGJmZUS6nTLL9EwIC13\nO9QpvtuDAgMBAAECggEAExv52BJ+G1Wt0hxHytynv2xA2sPCCGDEzpI5jWZUMtgc\n1U448E6Yw0deAAwctSuPDoCg01I8PqswRRf7tEUJbxhs4jRS2cPi/3Eq3PPcXBKv\nLUmw8qzqdBUTJSdpXTbdTHbQ69lVFHVCFCWk0e7f/koZgza1oPJIQzna4ePg0+uw\nuCJmG6IGwlrcX1aDD4aurV0T88BL1iZVZC7sAGtEl2/pSbrUjbV6thGEmpTdEhcq\nl8ZfggsIxzLEG3vnSEmaJa2PWyzlHtwcDJfoyUy9d2p7bu4v+VkWnRGFq5zo4Gao\n1HG6VcQp8SRXhrNsKvf31Mlnzm4gycojk7+XRsxSMQKBgQDzvpZE6lFclBpHdX1X\n5FTPf8iy2wJJ+T2NSX8MjuRmthSPMsnzQhbYh1Fy/NoYa/Lo0PZSZNShFKKn9Qzr\nepnv26hiVH6F8f2EJdXhZbOj0jurWDWgdf+mTB61rJpLwj8kHS65tVa+NNIqwHst\ne+1q5D03VhCERbvGIdypTqXwMwKBgQDRw/L5JQln3XRNFh0xWM3LBzKleUoeGNhH\n3Wy7FpDnAiAsalpyj3RSkcaYlZ7TDOgMUm8kJ9vlZ2ZJD0SdCYqF7KIG3jTaHxp5\nzuyTvcUoLfMEwya0E1OETRmmDitJjkWw2Obv/I0nCLOd5ou+/oAE//EMZCllX7BD\nkw2YiifXcQKBgQDIClCVeqEPk9UFdJ1MNu6L5Vm3wBpez5j+jaUhj1xQF3tEEvC/\nHixVxKjJ8E6l4GJZRLYD5RDEqoTbxze1Qsd3nRTSrnmwQGxJuiuQcsE939psw1Yv\nvOf1eV9yxpdTObZMU073xqXMMNmTkKkHKUAui+bZtV6U0A5Ni5jnss5pFQKBgFA7\nfbT0CJv0pWZSvgnA6L3uW93U/Zdzc05RkCQjJntlYb77UuscmaZ3YZm9KMma1yrX\nYPFYWZBuMz5gm6LhIl3FO9gap+aCHRNYJT8BR+btZFV++0/HUJt7DgNoyf/RbjCN\nVg+W7rpuZp1PsEX2fCrtZlqR+Q9wQTAnj/y3YzPRAoGBANyyJvgHGU+1ODd3Euqw\n9Pa3naMgbMguGeLyEjk3+7YIBuU62pXuxQd6+mf2lNQLkQ2WeZn2Zr3WX1CNftfU\nR/yYMpHIeTCeybvGPUci9r5jNcG4sajMBzKZK5WD/r0haL7F26eZ7uj7ShQTzRwh\nSZ9MB1ONX9mkNHzPjatBJzrl\n-----END PRIVATE KEY-----\n",
+  "client_email": "spanner-datagrip-client@round-ring-477704-b2.iam.gserviceaccount.com",
+  "client_id": "116682630719721590897",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/spanner-datagrip-client%40round-ring-477704-b2.iam.gserviceaccount.com",
+  "universe_domain": "googleapis.com"
+}

@@ -124,6 +124,28 @@
             <artifactId>tink</artifactId>
             <version>1.19.0</version>
         </dependency>
+        <dependency>
+            <groupId>com.google.cloud</groupId>
+            <artifactId>google-cloud-spanner-jdbc</artifactId>
+            <version>2.34.0</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>io.grpc</groupId>
+                    <artifactId>grpc-opentelemetry</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>com.google.cloud</groupId>
+            <artifactId>google-cloud-spanner</artifactId>
+            <version>6.103.0</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>io.opentelemetry</groupId>
+                    <artifactId>*</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
     </dependencies>
 
     <build>
@@ -163,6 +185,17 @@
                         <id>third-party-license-report</id>
                     </execution>
                 </executions>
+            </plugin>
+            <!-- Explicit exec plugin config to avoid arguments type-mismatch on some environments -->
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>exec-maven-plugin</artifactId>
+                <version>3.1.0</version>
+                <configuration>
+                    <mainClass>io.helidon.microprofile.cdi.Main</mainClass>
+                    <!-- Empty arguments array prevents the plugin from trying to coerce a single property into a String[] -->
+                    <arguments />
+                </configuration>
             </plugin>
         </plugins>
     </build>

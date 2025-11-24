@@ -42,4 +42,5 @@ jobs:
             --region=${{ secrets.AR_REGION }} \
             --platform=managed \
             --port=8080 \
-            --allow-unauthenticated
+            --service-account=helidon-runtime-sa@${{ secrets.GCP_PROJECT_ID }}.iam.gserviceaccount.com \
+            --no-allow-unauthenticated
