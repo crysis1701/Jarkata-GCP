@@ -3,9 +3,9 @@ server:
   host: "0.0.0.0"
 
 spanner:
-  project-id: ${SPANNER_PROJECT_ID:b}
-  instance-id: ${SPANNER_INSTANCE_ID:c}
-  database-id: ${SPANNER_DATABASE_ID:d}
+  project-id: ${SPANNER_PROJECT_ID:round-ring-477704-b2}
+  instance-id: ${SPANNER_INSTANCE_ID:tinks}
+  database-id: ${SPANNER_DATABASE_ID:csc}
   # Use classpath-relative resource key (no src/main/resources prefix). This will also work when running
   # from project root (projectDir/GCP/...) because the code checks project-relative file paths first.
   credentials-path: ${SPANNER_CREDENTIALS_PATH:src/main/resources/GCP/round-ring-477704-b2-e053da7de00e.json}
