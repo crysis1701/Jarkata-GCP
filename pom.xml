@@ -180,17 +180,6 @@
                     </execution>
                 </executions>
             </plugin>
-            <!-- Explicit exec plugin config to avoid arguments type-mismatch on some environments -->
-            <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>exec-maven-plugin</artifactId>
-                <version>3.1.0</version>
-                <configuration>
-                    <mainClass>io.helidon.microprofile.cdi.Main</mainClass>
-                    <!-- Empty arguments array prevents the plugin from trying to coerce a single property into a String[] -->
-                    <arguments />
-                </configuration>
-            </plugin>
         </plugins>
     </build>
 </project>

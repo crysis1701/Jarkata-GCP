@@ -39,6 +39,7 @@ jobs:
         run: |
           gcloud run deploy helidon-service \
             --image=$IMAGE \
+            --env-vars-file env-prod.yaml \
             --region=${{ secrets.AR_REGION }} \
             --platform=managed \
             --port=8080 \
